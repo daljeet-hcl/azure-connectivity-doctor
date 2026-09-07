@@ -1,0 +1,157 @@
+### commit 775dd7c72cfa18e7a7f85da9e5729fa808b6f9e2
+### run 34153391941 attempt 1
+
+===== dotnet --info =====
+.NET SDK:
+ Version:           10.0.400
+ Commit:            14fbf8d527
+ Workload version:  10.0.400-manifests.330ea142
+ MSBuild version:   18.9.6+14fbf8d52
+
+Runtime Environment:
+ OS Name:     ubuntu
+ OS Version:  24.04
+ OS Platform: Linux
+ RID:         linux-x64
+ Base Path:   /usr/share/dotnet/sdk/10.0.400/
+
+.NET workloads installed:
+There are no installed workloads to display.
+Configured to use workload sets when installing new manifests.
+No workload sets are installed. Run "dotnet workload restore" to install a workload set.
+
+Host:
+  Version:      10.0.11
+  Architecture: x64
+  Commit:       e2f47b0110
+
+.NET SDKs installed:
+  8.0.130 [/usr/share/dotnet/sdk]
+  8.0.206 [/usr/share/dotnet/sdk]
+  8.0.319 [/usr/share/dotnet/sdk]
+  8.0.424 [/usr/share/dotnet/sdk]
+  9.0.120 [/usr/share/dotnet/sdk]
+  9.0.205 [/usr/share/dotnet/sdk]
+  9.0.317 [/usr/share/dotnet/sdk]
+  10.0.111 [/usr/share/dotnet/sdk]
+  10.0.204 [/usr/share/dotnet/sdk]
+  10.0.303 [/usr/share/dotnet/sdk]
+  10.0.400 [/usr/share/dotnet/sdk]
+
+.NET runtimes installed:
+  Microsoft.AspNetCore.App 8.0.6 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 8.0.22 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 8.0.30 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 9.0.6 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 9.0.19 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 10.0.8 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 10.0.11 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.NETCore.App 8.0.6 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
+  Microsoft.NETCore.App 8.0.22 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
+  Microsoft.NETCore.App 8.0.30 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
+  Microsoft.NETCore.App 9.0.6 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
+  Microsoft.NETCore.App 9.0.19 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
+  Microsoft.NETCore.App 10.0.8 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
+  Microsoft.NETCore.App 10.0.11 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
+
+Other architectures found:
+  None
+
+Environment variables:
+  DOTNET_CLI_TELEMETRY_OPTOUT              [true]
+  DOTNET_MULTILEVEL_LOOKUP                 [0]
+  DOTNET_NOLOGO                            [true]
+  DOTNET_ROOT                              [/usr/share/dotnet]
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE        [1]
+
+global.json file:
+  /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/global.json
+
+Learn more:
+  https://aka.ms/dotnet/info
+
+Download .NET:
+  https://aka.ms/dotnet/download
+
+===== dotnet restore =====
+  Determining projects to restore...
+  Restored /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/src/AzureConnectivityDoctor.Cli/AzureConnectivityDoctor.Cli.csproj (in 3.39 sec).
+  Restored /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.Core.Tests/AzureConnectivityDoctor.Core.Tests.csproj (in 3.39 sec).
+  Restored /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/src/AzureConnectivityDoctor.Core/AzureConnectivityDoctor.Core.csproj (in 3.4 sec).
+  Restored /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.IntegrationTests/AzureConnectivityDoctor.IntegrationTests.csproj (in 3.39 sec).
+restore exit: 0
+
+===== dotnet build =====
+  AzureConnectivityDoctor.Core -> /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/src/AzureConnectivityDoctor.Core/bin/Release/net10.0/AzureConnectivityDoctor.Core.dll
+  AzureConnectivityDoctor.Cli -> /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/src/AzureConnectivityDoctor.Cli/bin/Release/net10.0/azure-connectivity-doctor.dll
+  AzureConnectivityDoctor.IntegrationTests -> /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.IntegrationTests/bin/Release/net10.0/AzureConnectivityDoctor.IntegrationTests.dll
+  AzureConnectivityDoctor.Core.Tests -> /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.Core.Tests/bin/Release/net10.0/AzureConnectivityDoctor.Core.Tests.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:08.67
+build exit: 0
+
+===== dotnet test =====
+Running tests from /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.IntegrationTests/bin/Release/net10.0/AzureConnectivityDoctor.IntegrationTests.dll (net10.0|x64)
+Running tests from /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.Core.Tests/bin/Release/net10.0/AzureConnectivityDoctor.Core.Tests.dll (net10.0|x64)
+[33mskipped[m AzureConnectivityDoctor.IntegrationTests.PublicEndpointTests.DnsTcpAndTls_SucceedAgainstAPublicHttpsEndpoint
+  Set ACD_INTEGRATION=1 to run the network-dependent integration tests.
+  from /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.IntegrationTests/bin/Release/net10.0/AzureConnectivityDoctor.IntegrationTests.dll (net10.0|x64)
+[31mfailed[m AzureConnectivityDoctor.IntegrationTests.LoopbackConnectivityTests.DnsProbe_ResolvesLocalhost [90m(2ms)[m
+  from /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.IntegrationTests/bin/Release/net10.0/AzureConnectivityDoctor.IntegrationTests.dll (net10.0|x64)
+[31m  Xunit.MicrosoftTestingPlatform.XunitException: System.FormatException : An invalid IP address was specified.
+  ---- System.Net.Sockets.SocketException : Invalid argument
+[m[90m    at System.Net.IPAddressParser.Parse[TChar](ReadOnlySpan`1 ipSpan, Boolean tryParse)
+    at AzureConnectivityDoctor.Core.Probes.DnsProbe.ResolveAsync(ProbeTarget target, TimeSpan timeout, CancellationToken cancellationToken) in /_/src/AzureConnectivityDoctor.Core/Probes/DnsProbe.cs:49[90m
+    at AzureConnectivityDoctor.IntegrationTests.LoopbackConnectivityTests.DnsProbe_ResolvesLocalhost() in /_/tests/AzureConnectivityDoctor.IntegrationTests/LoopbackConnectivityTests.cs:74[90m
+    --- End of stack trace from previous location ---
+[90m    ----- Inner Stack Trace -----
+[90m    
+[m[m/home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.IntegrationTests/bin/Release/net10.0/AzureConnectivityDoctor.IntegrationTests.dll (net10.0|x64) [31mfailed with 1 error(s)[m [90m(610ms)[m
+Exit code: 2
+[31mfailed[m AzureConnectivityDoctor.Core.Tests.DiagnosticRunnerTests.RunAsync_RecordsAFailedParseWithoutRunningAnyProbe [90m(5ms)[m
+  from /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.Core.Tests/bin/Release/net10.0/AzureConnectivityDoctor.Core.Tests.dll (net10.0|x64)
+[31m  Assert.DoesNotContain() Failure: Sub-string found
+                        ↓ (pos 13)
+  String: "https://user:secret@example.com"
+  Found:  "secret"
+[m[90m    at AzureConnectivityDoctor.Core.Tests.DiagnosticRunnerTests.RunAsync_RecordsAFailedParseWithoutRunningAnyProbe() in /_/tests/AzureConnectivityDoctor.Core.Tests/DiagnosticRunnerTests.cs:139[90m
+    --- End of stack trace from previous location ---
+[m[31mfailed[m AzureConnectivityDoctor.Core.Tests.ReportRendererTests.MarkdownRenderer_DoesNotLeakSecretsPresentInEvidence [90m(11ms)[m
+  from /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.Core.Tests/bin/Release/net10.0/AzureConnectivityDoctor.Core.Tests.dll (net10.0|x64)
+[31m  Assert.DoesNotContain() Failure: Sub-string found
+                                       ↓ (pos 1243)
+  String: ···"ing` | Server=x;Password=hunter2; |\n| `socketError"···
+  Found:  "hunter2"
+[m[90m    at AzureConnectivityDoctor.Core.Tests.ReportRendererTests.MarkdownRenderer_DoesNotLeakSecretsPresentInEvidence() in /_/tests/AzureConnectivityDoctor.Core.Tests/ReportRendererTests.cs:61[90m
+    at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+    at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[m[31mfailed[m AzureConnectivityDoctor.Core.Tests.ReportRendererTests.JsonRenderer_DoesNotLeakSecretsPresentInEvidence [90m(0ms)[m
+  from /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.Core.Tests/bin/Release/net10.0/AzureConnectivityDoctor.Core.Tests.dll (net10.0|x64)
+[31m  Assert.DoesNotContain() Failure: Sub-string found
+                                       ↓ (pos 980)
+  String: ···"ing": "Server=x;Password=hunter2;"\n          }\n   "···
+  Found:  "hunter2"
+[m[90m    at AzureConnectivityDoctor.Core.Tests.ReportRendererTests.JsonRenderer_DoesNotLeakSecretsPresentInEvidence() in /_/tests/AzureConnectivityDoctor.Core.Tests/ReportRendererTests.cs:51[90m
+    at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+    at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+[m[m/home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.Core.Tests/bin/Release/net10.0/AzureConnectivityDoctor.Core.Tests.dll (net10.0|x64) [31mfailed with 3 error(s)[m [90m(669ms)[m
+Exit code: 2
+
+[31mTest run summary: Failed!
+  [m/home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.IntegrationTests/bin/Release/net10.0/AzureConnectivityDoctor.IntegrationTests.dll (net10.0|x64) [31mfailed with 1 error(s)[m [90m(610ms)[m
+  [m/home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.Core.Tests/bin/Release/net10.0/AzureConnectivityDoctor.Core.Tests.dll (net10.0|x64) [31mfailed with 3 error(s)[m [90m(669ms)[m
+
+[m  total: 68
+[31m  failed: 4
+[m  succeeded: 63
+  skipped: 1
+  duration: 961ms
+Test run completed with non-success exit code: 2 (see: https://aka.ms/testingplatform/exitcodes)
+test exit: 2
+
+===== dotnet format --verify-no-changes =====
+format exit: 0
