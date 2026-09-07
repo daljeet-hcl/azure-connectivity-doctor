@@ -1,0 +1,90 @@
+# Captures the full restore/build/test output and publishes it to the 'ci-logs' branch.
+#
+# Why this exists: reviewers (and automation) that can only read repository content still need
+# the compiler diagnostics from a failing build. The Actions log UI is not reachable from every
+# review context, so the log is committed to a dedicated branch that is never built from.
+#
+# The 'ci-logs' branch is force-updated on every run and holds no source code.
+name: Build log
+
+on:
+  push:
+    branches: ['feat/**', 'fix/**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  DOTNET_NOLOGO: 'true'
+  DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
+
+jobs:
+  capture:
+    name: Capture build diagnostics
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      - name: Set up the .NET SDK pinned by global.json
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Capture restore, build and test output
+        continue-on-error: true
+        run: |
+          set +e
+          mkdir -p /tmp/ci-logs
+          {
+            echo "### commit ${GITHUB_SHA}"
+            echo "### run ${GITHUB_RUN_ID} attempt ${GITHUB_RUN_ATTEMPT}"
+            echo
+            echo "===== dotnet --info ====="
+            dotnet --info 2>&1
+            echo
+            echo "===== dotnet restore ====="
+            dotnet restore AzureConnectivityDoctor.slnx 2>&1
+            echo "restore exit: $?"
+            echo
+            echo "===== dotnet build ====="
+            dotnet build AzureConnectivityDoctor.slnx --configuration Release --no-restore 2>&1
+            echo "build exit: $?"
+            echo
+            echo "===== dotnet test ====="
+            dotnet test AzureConnectivityDoctor.slnx --configuration Release --no-build 2>&1
+            echo "test exit: $?"
+            echo
+            echo "===== dotnet format --verify-no-changes ====="
+            dotnet format AzureConnectivityDoctor.slnx --verify-no-changes --no-restore 2>&1
+            echo "format exit: $?"
+          } > /tmp/ci-logs/build.log 2>&1
+
+      - name: Reduce the log to the diagnostics that matter
+        continue-on-error: true
+        run: |
+          set +e
+          grep -E 'error |warning |Build FAILED|Build succeeded|exit:|Failed!|Passed!|error:|MSB[0-9]+|NU[0-9]+|CS[0-9]+|CA[0-9]+|WHITESPACE|IDE[0-9]+' \
+            /tmp/ci-logs/build.log | head -400 > /tmp/ci-logs/summary.log
+          wc -l /tmp/ci-logs/build.log
+
+      - name: Publish the log to the ci-logs branch
+        run: |
+          set -e
+          cd "${RUNNER_TEMP}"
+          rm -rf logrepo
+          git init -q logrepo
+          cd logrepo
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          cp /tmp/ci-logs/build.log .
+          cp /tmp/ci-logs/summary.log . 2>/dev/null || true
+          # Keep the full log under the GitHub contents API limit.
+          tail -c 900000 build.log > build.tail.log
+          rm build.log
+          git add -A
+          git commit -q -m "ci: build log for ${GITHUB_SHA} [skip ci]"
+          git push -q --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/heads/ci-logs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
