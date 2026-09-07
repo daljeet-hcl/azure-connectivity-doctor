@@ -40,21 +40,9 @@ jobs:
       - name: Build
         run: dotnet build AzureConnectivityDoctor.slnx --configuration Release --no-restore
 
+      # xunit.v3 runs on Microsoft.Testing.Platform, so no VSTest logger arguments are used.
       - name: Test
-        run: >
-          dotnet test AzureConnectivityDoctor.slnx
-          --configuration Release
-          --no-build
-          --logger "trx;LogFileName=test-results.trx"
-          --results-directory artifacts/test-results
-
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results-${{ matrix.os }}
-          path: artifacts/test-results
-          if-no-files-found: ignore
+        run: dotnet test AzureConnectivityDoctor.slnx --configuration Release --no-build
 
   format:
     name: Verify formatting

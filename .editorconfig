@@ -87,6 +87,11 @@ dotnet_diagnostic.CA1031.severity = none
 # ILogger calls is worth more than the allocation savings.
 dotnet_diagnostic.CA1848.severity = none
 
+# CA1873: "Evaluation of this argument may be expensive if logging is disabled". Same
+# reasoning as CA1848: the arguments here are host names and enum values, and the run
+# emits tens of log lines, not millions.
+dotnet_diagnostic.CA1873.severity = none
+
 # CA1303: "Do not pass literals as localized parameters". The tool is English-only by
 # design; a resource-file indirection would obscure the diagnostic text.
 dotnet_diagnostic.CA1303.severity = none
@@ -107,6 +112,24 @@ dotnet_diagnostic.CA1056.severity = none
 # CA1062: "Validate arguments of public methods". Nullable reference types are enabled
 # and enforced, which covers this statically.
 dotnet_diagnostic.CA1062.severity = none
+
+# CA1014: "Mark assemblies with CLSCompliant". The library is consumed only by this
+# tool's own C# projects; declaring CLS compliance would imply a cross-language support
+# commitment that is not offered.
+dotnet_diagnostic.CA1014.severity = none
+
+# CA1859: "Change type for improved performance". Interface-typed parameters are used
+# deliberately so that call sites cannot mutate the collections they pass in.
+dotnet_diagnostic.CA1859.severity = none
+
+[src/AzureConnectivityDoctor.Core/Probes/TlsProbe.cs]
+# CA5359: "Do not disable certificate validation".
+# This is intentional and is the entire point of the TLS probe: the callback returns true so
+# that the handshake completes far enough to capture the certificate chain and the exact
+# SslPolicyErrors value, which are then reported as the real validation outcome. The stream is
+# closed immediately; no application data is ever read from it or written to it, so an
+# untrusted certificate can never be acted upon. See docs/adr/0004-tls-probe-certificate-capture.md.
+dotnet_diagnostic.CA5359.severity = none
 
 [tests/**/*.cs]
 # CA1707: underscores in test method names are the established readability convention.
