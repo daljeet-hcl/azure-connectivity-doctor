@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/AzureConnectivityDoctor.Core/AzureConnectivityDoctor.Core.csproj" />
+    <Project Path="src/AzureConnectivityDoctor.Cli/AzureConnectivityDoctor.Cli.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/AzureConnectivityDoctor.Core.Tests/AzureConnectivityDoctor.Core.Tests.csproj" />
+    <Project Path="tests/AzureConnectivityDoctor.IntegrationTests/AzureConnectivityDoctor.IntegrationTests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,37 @@
+# Build output
+bin/
+obj/
+artifacts/
+publish/
+*.user
+*.suo
+
+# Test / coverage output
+TestResults/
+coverage/
+*.coverage
+*.trx
+*.cobertura.xml
+
+# Tool and IDE state
+.vs/
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+.DS_Store
+
+# Generated diagnostic reports produced by running the tool locally.
+connectivity-report.json
+connectivity-report.md
+*.connectivity-report.json
+*.connectivity-report.md
+
+# Local environment overrides. NEVER commit real credentials.
+.env
+.env.*
+!.env.example
+appsettings.Local.json
+*.pfx
+*.p12
+*.key
