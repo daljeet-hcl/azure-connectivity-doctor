@@ -170,7 +170,10 @@ public sealed class ServiceBusProbe : IServiceBusProbe
             ServiceBusFailureReason.MessagingEntityNotFound =>
                 "The namespace was reached and the identity was accepted, but the queue or topic does not " +
                 "exist. Check the entity name.",
-            ServiceBusFailureReason.Unauthorized =>
+            ServiceBusFailureReason.MessagingEntityDisabled =>
+                "The namespace was reached and the identity was accepted, but the entity is disabled. " +
+                "The network path is healthy.",
+            ServiceBusFailureReason.UnauthorizedAccess =>
                 "The namespace was reached but the identity is not authorised. Assign the Azure Service Bus " +
                 "Data Sender role at the namespace or entity scope.",
             ServiceBusFailureReason.ServiceCommunicationProblem =>

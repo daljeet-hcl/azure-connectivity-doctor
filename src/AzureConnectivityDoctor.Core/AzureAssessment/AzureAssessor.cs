@@ -96,9 +96,12 @@ public sealed class AzureAssessor : IAzureAssessor
             evidence["resourceName"] = data.Name ?? identifier.Name;
             evidence["resourceType"] = data.ResourceType.ToString();
 
-            if (data.Location.HasValue)
+            // AzureLocation is a value type, so it is compared against the default rather than
+            // tested for null. Resources that are not region-bound report an empty name.
+            string locationName = data.Location.Name;
+            if (!string.IsNullOrEmpty(locationName))
             {
-                evidence["location"] = data.Location.Value.Name;
+                evidence["location"] = locationName;
             }
 
             IReadOnlyList<string> observations = ReadNetworkProperties(data.Properties, evidence);
