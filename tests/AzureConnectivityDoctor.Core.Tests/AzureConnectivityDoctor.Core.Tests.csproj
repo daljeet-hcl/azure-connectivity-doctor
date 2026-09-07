@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>AzureConnectivityDoctor.Core.Tests</RootNamespace>
+    <AssemblyName>AzureConnectivityDoctor.Core.Tests</AssemblyName>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <!-- xunit.v3 runs on Microsoft.Testing.Platform. The runner is selected repository-wide by
+       the "test" section of global.json, so no per-project opt-in property is needed. -->
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Options" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AzureConnectivityDoctor.Core\AzureConnectivityDoctor.Core.csproj" />
+    <ProjectReference Include="..\..\src\AzureConnectivityDoctor.Cli\AzureConnectivityDoctor.Cli.csproj" />
+  </ItemGroup>
+
+</Project>

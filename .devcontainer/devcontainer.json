@@ -1,0 +1,26 @@
+{
+  "name": "Azure Connectivity Doctor (.NET 10)",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "features": {
+    "ghcr.io/devcontainers/features/dotnet:2": {
+      "version": "10.0"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-dotnettools.csdevkit",
+        "ms-dotnettools.csharp",
+        "editorconfig.editorconfig",
+        "github.vscode-github-actions"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "dotnet.defaultSolution": "AzureConnectivityDoctor.slnx"
+      }
+    }
+  },
+  "postCreateCommand": "dotnet --info && dotnet restore AzureConnectivityDoctor.slnx",
+  "remoteUser": "vscode"
+}

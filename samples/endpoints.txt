@@ -1,0 +1,27 @@
+# One endpoint per line. Blank lines and lines beginning with '#' are ignored.
+#
+# Pass this file with:
+#   azure-connectivity-doctor --endpoints-file samples/endpoints.txt
+#
+# Replace the placeholder host names below with the ones your workload actually calls.
+
+# A public HTTPS dependency.
+https://learn.microsoft.com/
+
+# An Azure App Service or API. Add --http to send a real request.
+# https://contoso.azurewebsites.net/health
+
+# An Azure SQL logical server. Port 1433 is inferred. Add --identity to authenticate.
+# contoso.database.windows.net
+
+# An Azure SQL logical server with an explicit database name.
+# contoso.database.windows.net/inventory
+
+# An Azure Service Bus namespace over AMQP. Port 5671 is inferred.
+# contoso.servicebus.windows.net/orders
+
+# The same namespace over AMQP-over-WebSockets, for environments that block 5671.
+# contoso.servicebus.windows.net:443/orders
+
+# A private endpoint reached by IP literal, to separate DNS problems from routing problems.
+# 10.0.1.4:1433
