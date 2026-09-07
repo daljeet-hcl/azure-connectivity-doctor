@@ -143,6 +143,31 @@ public sealed class ServiceBusProbe : IServiceBusProbe
                 Evidence = evidence
             };
         }
+        catch (UnauthorizedAccessException exception)
+        {
+            // Authorisation failures do not map to a ServiceBusFailureReason member; the client
+            // surfaces them as UnauthorizedAccessException. This is a good outcome for the network
+            // diagnosis, because reaching the authorisation check proves the path and TLS worked.
+            double elapsed = Stopwatch.GetElapsedTime(start).TotalMilliseconds;
+            evidence["failureReason"] = "UnauthorizedAccess";
+            evidence["interpretation"] =
+                "The namespace was reached over the network, so connectivity is proven, but the identity " +
+                "is not authorised for the entity.";
+
+            return new StageResult
+            {
+                Stage = DiagnosticStage.ServiceBusLink,
+                Outcome = DiagnosticOutcome.Failed,
+                Summary =
+                    $"{target.Host} was reached but the identity is not authorised to send to " +
+                    $"'{target.EntityName}'. Assign the Azure Service Bus Data Sender role at the namespace " +
+                    "or entity scope. The network path and TLS are confirmed working.",
+                DurationMilliseconds = elapsed,
+                ErrorType = nameof(UnauthorizedAccessException),
+                ErrorMessage = SecretRedactor.Redact(exception.Message),
+                Evidence = evidence
+            };
+        }
         catch (Exception exception) when (exception is not OperationCanceledException)
         {
             double elapsed = Stopwatch.GetElapsedTime(start).TotalMilliseconds;
@@ -163,22 +188,24 @@ public sealed class ServiceBusProbe : IServiceBusProbe
     /// <summary>Translates the documented Service Bus failure reasons into operator guidance.</summary>
     /// <param name="reason">The reported failure reason.</param>
     /// <returns>A plain-language interpretation.</returns>
+    /// <remarks>
+    /// The cases below are the members of <see cref="ServiceBusFailureReason"/> that a
+    /// connection-establishment probe can actually observe. Message-level reasons such as
+    /// <c>MessageLockLost</c> cannot occur here because no message is ever sent or received.
+    /// </remarks>
     internal static string Interpret(ServiceBusFailureReason reason)
     {
         return reason switch
         {
             ServiceBusFailureReason.MessagingEntityNotFound =>
                 "The namespace was reached and the identity was accepted, but the queue or topic does not " +
-                "exist. Check the entity name.",
+                "exist. Check the entity name. Connectivity is proven.",
             ServiceBusFailureReason.MessagingEntityDisabled =>
                 "The namespace was reached and the identity was accepted, but the entity is disabled. " +
-                "The network path is healthy.",
-            ServiceBusFailureReason.UnauthorizedAccess =>
-                "The namespace was reached but the identity is not authorised. Assign the Azure Service Bus " +
-                "Data Sender role at the namespace or entity scope.",
+                "Connectivity is proven.",
             ServiceBusFailureReason.ServiceCommunicationProblem =>
                 "The client could not communicate with the namespace. This is the signature of a blocked " +
-                "outbound port. Retry over AMQP WebSockets on port 443.",
+                "outbound port. Retry over AMQP WebSockets on port 443 by appending ':443' to the endpoint.",
             ServiceBusFailureReason.ServiceTimeout =>
                 "The service did not respond within the try timeout. Check for a firewall that silently " +
                 "drops packets on the AMQP port.",
@@ -186,6 +213,8 @@ public sealed class ServiceBusProbe : IServiceBusProbe
                 "The namespace throttled the request. The network path is healthy.",
             ServiceBusFailureReason.QuotaExceeded =>
                 "A namespace or entity quota was exceeded. The network path is healthy.",
+            ServiceBusFailureReason.GeneralError =>
+                "The client library reported a general error. See the accompanying error message.",
             _ =>
                 "See the accompanying error message for the service-reported detail."
         };
