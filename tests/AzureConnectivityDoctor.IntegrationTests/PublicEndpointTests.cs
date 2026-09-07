@@ -37,7 +37,7 @@ public sealed class PublicEndpointTests
             .ConnectAsync(target, dns.Addresses, timeout, cancellationToken);
         Assert.Equal(DiagnosticOutcome.Succeeded, tcp.Result.Outcome);
 
-        TlsProbeResult tls = await new TlsProbe(NullLogger<TlsProbe>.Instance)
+        TlsProbeResult tls = await new TlsProbe(NullLogger<TlsProbe>.Instance, TimeProvider.System)
             .HandshakeAsync(target, tcp.ConnectedAddress!, timeout, cancellationToken);
         Assert.Equal(DiagnosticOutcome.Succeeded, tls.Handshake.Outcome);
         Assert.Equal(DiagnosticOutcome.Succeeded, tls.Certificate.Outcome);

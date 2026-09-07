@@ -6,14 +6,10 @@
     <AssemblyName>AzureConnectivityDoctor.IntegrationTests</AssemblyName>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-
-    <!-- See the unit-test project: the .NET 10 SDK requires the native test-platform path. -->
-    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
-    <UseVSTest>false</UseVSTest>
-
     <NoWarn>$(NoWarn);CS1591</NoWarn>
   </PropertyGroup>
 
+  <!-- See the unit-test project: the MTP runner is selected in global.json. -->
   <ItemGroup>
     <PackageReference Include="xunit.v3" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />

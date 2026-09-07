@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using AzureConnectivityDoctor.Core.Options;
 
@@ -234,24 +235,37 @@ internal static class CommandLineParser
         return CommandLineParseResult.Success(options, verbose);
     }
 
-    private static bool TryReadValue(string[] args, ref int index, out string value)
+    /// <summary>
+    /// Reads the value that follows an option and advances the index past it.
+    /// </summary>
+    /// <param name="args">The raw arguments.</param>
+    /// <param name="index">The index of the option; advanced to the value on success.</param>
+    /// <param name="value">The value read, or <see langword="null"/> when there is none.</param>
+    /// <returns><see langword="true"/> when a non-blank value was read.</returns>
+    /// <remarks>
+    /// The out parameter is declared nullable with <see cref="NotNullWhenAttribute"/> so that a
+    /// single method serves both call sites that assign to a <c>string?</c> variable and call
+    /// sites that need a non-null <c>string</c>. Overloading on out-parameter nullability alone
+    /// is not legal, because nullability is not part of a method signature.
+    /// </remarks>
+    private static bool TryReadValue(string[] args, ref int index, [NotNullWhen(true)] out string? value)
     {
         if (index + 1 >= args.Length)
         {
-            value = string.Empty;
+            value = null;
+            return false;
+        }
+
+        string candidate = args[index + 1];
+        if (string.IsNullOrWhiteSpace(candidate))
+        {
+            value = null;
             return false;
         }
 
         index++;
-        value = args[index];
-        return !string.IsNullOrWhiteSpace(value);
-    }
-
-    private static bool TryReadValue(string[] args, ref int index, out string? value)
-    {
-        bool read = TryReadValue(args, ref index, out string text);
-        value = read ? text : null;
-        return read;
+        value = candidate;
+        return true;
     }
 
     private static bool TryParseSeconds(string? text, int minimum, out TimeSpan value)

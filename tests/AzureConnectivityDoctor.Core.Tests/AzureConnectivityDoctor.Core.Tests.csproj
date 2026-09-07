@@ -6,15 +6,11 @@
     <AssemblyName>AzureConnectivityDoctor.Core.Tests</AssemblyName>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-
-    <!-- xunit.v3 is built on Microsoft.Testing.Platform. The .NET 10 SDK removed the VSTest
-         bridge, so `dotnet test` must use the native test-platform path instead. -->
-    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
-    <UseVSTest>false</UseVSTest>
-
     <NoWarn>$(NoWarn);CS1591</NoWarn>
   </PropertyGroup>
 
+  <!-- xunit.v3 runs on Microsoft.Testing.Platform. The runner is selected repository-wide by
+       the "test" section of global.json, so no per-project opt-in property is needed. -->
   <ItemGroup>
     <PackageReference Include="xunit.v3" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
