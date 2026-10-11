@@ -44,9 +44,8 @@ public sealed class DnsProbe : IDnsProbe
     {
         ArgumentNullException.ThrowIfNull(target);
 
-        if (target.HostIsIpLiteral)
+        if (IPAddress.TryParse(target.Host, out IPAddress? literal))
         {
-            IPAddress literal = IPAddress.Parse(target.Host);
             var evidence = new Dictionary<string, string>(StringComparer.Ordinal)
             {
                 ["host"] = target.Host,

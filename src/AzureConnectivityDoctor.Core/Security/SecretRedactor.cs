@@ -38,6 +38,7 @@ public static partial class SecretRedactor
         }
 
         string result = value;
+        result = UserInfoRegex().Replace(result, "//$1" + Placeholder + "@");
         result = KeyValueSecretRegex().Replace(result, match => match.Groups["key"].Value + "=" + Placeholder);
         result = BearerTokenRegex().Replace(result, "Bearer " + Placeholder);
         result = SasSignatureRegex().Replace(result, match => match.Groups["key"].Value + "=" + Placeholder);
@@ -82,6 +83,13 @@ public static partial class SecretRedactor
         RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
         RegexTimeoutMilliseconds)]
     private static partial Regex SasSignatureRegex();
+
+    // Matches user info (username:password@) in URLs.
+    [GeneratedRegex(
+        @"(?<=//)([^/:\s]+:)[^@/\s]+(?=@)",
+        RegexOptions.IgnoreCase | RegexOptions.CultureInvariant,
+        RegexTimeoutMilliseconds)]
+    private static partial Regex UserInfoRegex();
 
     // Matches a bare three-segment JSON Web Token.
     [GeneratedRegex(

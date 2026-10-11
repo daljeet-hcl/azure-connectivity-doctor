@@ -252,6 +252,6 @@ dotnet test --filter Category=Integration -e ACD_INTEGRATION=1
 ---
 
 ## Contributing & Development Roadmap
-- [ ] Fix Windows localhost DNS IP resolution in `DnsProbe`.
-- [ ] Ensure end-to-end secret scrubbing in malformed target inputs and evidence dictionaries.
+- [x] Fix Windows localhost DNS IP resolution in `DnsProbe`.
+- [x] Ensure end-to-end secret scrubbing in malformed target inputs and evidence dictionaries.
 - [ ] Add support for automated discovery of dependency endpoints directly by scanning `.csproj` / `appsettings.json` configurations.

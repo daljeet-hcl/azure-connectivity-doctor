@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Text;
 using AzureConnectivityDoctor.Core.Model;
+using AzureConnectivityDoctor.Core.Security;
 
 namespace AzureConnectivityDoctor.Core.Reporting;
 
@@ -224,7 +225,8 @@ public sealed class MarkdownReportRenderer : IReportRenderer
                 pair => pair.Key,
                 StringComparer.Ordinal))
             {
-                builder.AppendLine(Invariant($"| `{item.Key}` | {Escape(item.Value)} |"));
+                string safeValue = SecretRedactor.Redact(item.Value) ?? string.Empty;
+                builder.AppendLine(Invariant($"| `{item.Key}` | {Escape(safeValue)} |"));
             }
 
             builder.AppendLine();

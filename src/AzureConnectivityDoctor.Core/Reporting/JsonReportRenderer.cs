@@ -2,6 +2,7 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using AzureConnectivityDoctor.Core.Model;
+using AzureConnectivityDoctor.Core.Security;
 
 namespace AzureConnectivityDoctor.Core.Reporting;
 
@@ -31,7 +32,44 @@ public sealed class JsonReportRenderer : IReportRenderer
     public string Render(RunReport report)
     {
         ArgumentNullException.ThrowIfNull(report);
-        return JsonSerializer.Serialize(report, SerializerOptions);
+        RunReport sanitized = Sanitize(report);
+        return JsonSerializer.Serialize(sanitized, SerializerOptions);
+    }
+
+    private static RunReport Sanitize(RunReport report)
+    {
+        var sanitizedTargets = new List<TargetReport>(report.Targets.Count);
+        foreach (TargetReport target in report.Targets)
+        {
+            var sanitizedStages = new List<StageResult>(target.Stages.Count);
+            foreach (StageResult stage in target.Stages)
+            {
+                sanitizedStages.Add(stage with
+                {
+                    Evidence = SecretRedactor.RedactEvidence(stage.Evidence)
+                });
+            }
+
+            sanitizedTargets.Add(target with
+            {
+                Stages = sanitizedStages
+            });
+        }
+
+        var sanitizedAssessment = new List<StageResult>(report.AzureAssessment.Count);
+        foreach (StageResult stage in report.AzureAssessment)
+        {
+            sanitizedAssessment.Add(stage with
+            {
+                Evidence = SecretRedactor.RedactEvidence(stage.Evidence)
+            });
+        }
+
+        return report with
+        {
+            Targets = sanitizedTargets,
+            AzureAssessment = sanitizedAssessment
+        };
     }
 
     private static JsonSerializerOptions CreateOptions()

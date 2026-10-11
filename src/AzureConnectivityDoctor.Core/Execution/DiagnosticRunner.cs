@@ -259,7 +259,7 @@ public sealed class DiagnosticRunner : IDiagnosticRunner
 
             return new TargetReport
             {
-                RawValue = rawValue,
+                RawValue = SecretRedactor.Redact(rawValue) ?? rawValue,
                 Target = null,
                 Stages = stages,
                 Findings = _analyzer.Analyze(null, stages, azureAssessment)
