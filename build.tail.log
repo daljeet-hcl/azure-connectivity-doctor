@@ -1,0 +1,121 @@
+### commit 4fe2aed900e5c632af49f0608b29932dbc760b3b
+### run 38161645041 attempt 1
+
+===== dotnet --info =====
+.NET SDK:
+ Version:           10.0.401
+ Commit:            e34a38d2ae
+ Workload version:  10.0.400-manifests.63b36e85
+ MSBuild version:   18.9.11+e34a38d2a
+
+Runtime Environment:
+ OS Name:     ubuntu
+ OS Version:  24.04
+ OS Platform: Linux
+ RID:         linux-x64
+ Base Path:   /usr/share/dotnet/sdk/10.0.401/
+
+.NET workloads installed:
+There are no installed workloads to display.
+Configured to use workload sets when installing new manifests.
+No workload sets are installed. Run "dotnet workload restore" to install a workload set.
+
+Host:
+  Version:      10.0.12
+  Architecture: x64
+  Commit:       95017c711e
+
+.NET SDKs installed:
+  8.0.131 [/usr/share/dotnet/sdk]
+  8.0.206 [/usr/share/dotnet/sdk]
+  8.0.319 [/usr/share/dotnet/sdk]
+  8.0.425 [/usr/share/dotnet/sdk]
+  9.0.121 [/usr/share/dotnet/sdk]
+  9.0.205 [/usr/share/dotnet/sdk]
+  9.0.318 [/usr/share/dotnet/sdk]
+  10.0.112 [/usr/share/dotnet/sdk]
+  10.0.204 [/usr/share/dotnet/sdk]
+  10.0.303 [/usr/share/dotnet/sdk]
+  10.0.400 [/usr/share/dotnet/sdk]
+  10.0.401 [/usr/share/dotnet/sdk]
+
+.NET runtimes installed:
+  Microsoft.AspNetCore.App 8.0.6 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 8.0.22 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 8.0.31 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 9.0.6 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 9.0.20 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 10.0.8 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 10.0.11 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.AspNetCore.App 10.0.12 [/usr/share/dotnet/shared/Microsoft.AspNetCore.App]
+  Microsoft.NETCore.App 8.0.6 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
+  Microsoft.NETCore.App 8.0.22 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
+  Microsoft.NETCore.App 8.0.31 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
+  Microsoft.NETCore.App 9.0.6 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
+  Microsoft.NETCore.App 9.0.20 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
+  Microsoft.NETCore.App 10.0.8 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
+  Microsoft.NETCore.App 10.0.11 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
+  Microsoft.NETCore.App 10.0.12 [/usr/share/dotnet/shared/Microsoft.NETCore.App]
+
+Other architectures found:
+  None
+
+Environment variables:
+  DOTNET_CLI_TELEMETRY_OPTOUT              [true]
+  DOTNET_MULTILEVEL_LOOKUP                 [0]
+  DOTNET_NOLOGO                            [true]
+  DOTNET_ROOT                              [/usr/share/dotnet]
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE        [1]
+
+global.json file:
+  /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/global.json
+
+Learn more:
+  https://aka.ms/dotnet/info
+
+Download .NET:
+  https://aka.ms/dotnet/download
+
+===== dotnet restore =====
+  Determining projects to restore...
+  Restored /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.IntegrationTests/AzureConnectivityDoctor.IntegrationTests.csproj (in 5.93 sec).
+  Restored /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/src/AzureConnectivityDoctor.Core/AzureConnectivityDoctor.Core.csproj (in 5.93 sec).
+  Restored /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/src/AzureConnectivityDoctor.Cli/AzureConnectivityDoctor.Cli.csproj (in 5.93 sec).
+  Restored /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.Core.Tests/AzureConnectivityDoctor.Core.Tests.csproj (in 5.93 sec).
+restore exit: 0
+
+===== dotnet build =====
+  AzureConnectivityDoctor.Core -> /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/src/AzureConnectivityDoctor.Core/bin/Release/net10.0/AzureConnectivityDoctor.Core.dll
+  AzureConnectivityDoctor.Cli -> /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/src/AzureConnectivityDoctor.Cli/bin/Release/net10.0/azure-connectivity-doctor.dll
+  AzureConnectivityDoctor.IntegrationTests -> /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.IntegrationTests/bin/Release/net10.0/AzureConnectivityDoctor.IntegrationTests.dll
+  AzureConnectivityDoctor.Core.Tests -> /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.Core.Tests/bin/Release/net10.0/AzureConnectivityDoctor.Core.Tests.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:08.65
+build exit: 0
+
+===== dotnet test =====
+Running tests from /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.Core.Tests/bin/Release/net10.0/AzureConnectivityDoctor.Core.Tests.dll (net10.0|x64)
+Running tests from /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.IntegrationTests/bin/Release/net10.0/AzureConnectivityDoctor.IntegrationTests.dll (net10.0|x64)
+[33mskipped[m AzureConnectivityDoctor.IntegrationTests.PublicEndpointTests.DnsTcpAndTls_SucceedAgainstAPublicHttpsEndpoint
+  Set ACD_INTEGRATION=1 to run the network-dependent integration tests.
+  from /home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.IntegrationTests/bin/Release/net10.0/AzureConnectivityDoctor.IntegrationTests.dll (net10.0|x64)
+[m/home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.IntegrationTests/bin/Release/net10.0/AzureConnectivityDoctor.IntegrationTests.dll (net10.0|x64) [32mpassed[m [90m(842ms)[m
+[m/home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.Core.Tests/bin/Release/net10.0/AzureConnectivityDoctor.Core.Tests.dll (net10.0|x64) [32mpassed[m [90m(1s 091ms)[m
+
+[32mTest run summary: Passed!
+  [m/home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.IntegrationTests/bin/Release/net10.0/AzureConnectivityDoctor.IntegrationTests.dll (net10.0|x64) [32mpassed[m [90m(842ms)[m
+  [m/home/runner/work/azure-connectivity-doctor/azure-connectivity-doctor/tests/AzureConnectivityDoctor.Core.Tests/bin/Release/net10.0/AzureConnectivityDoctor.Core.Tests.dll (net10.0|x64) [32mpassed[m [90m(1s 091ms)[m
+
+[m  total: 68
+  failed: 0
+[32m  succeeded: 67
+[m  skipped: 1
+  duration: 1s 461ms
+test exit: 0
+
+===== dotnet format --verify-no-changes =====
+format exit: 0
