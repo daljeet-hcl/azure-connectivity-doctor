@@ -1,0 +1,32 @@
+# ==============================================================================
+# TEST SUITE 2: Negative Connectivity & Failure Modes
+# ==============================================================================
+# Purpose: Validate that Azure Connectivity Doctor detects and categorizes real network failures
+#          without crashing, and outputs the exact ACD-* root-cause code and recommendation.
+
+# 1. Non-Existent Domain (Tests DNS Name Resolution Failure -> ACD-DNS-NAME-NOT-FOUND)
+https://this-domain-definitely-does-not-exist-acd-test-998877.org
+
+# 2. Blackhole / Silent Drop / Firewall Drop IP (Tests TCP Timeout -> ACD-TCP-BLOCKED)
+# RFC 5737 TEST-NET-1 (192.0.2.1 is reserved for documentation and does not route)
+192.0.2.1:443
+
+# 3. Connection Refused / No Port Listening (Tests TCP RST -> ACD-TCP-REFUSED)
+# Port 65432 on 127.0.0.1 (closed loopback port immediately replies with TCP RST)
+127.0.0.1:65432
+
+# 4. Expired SSL Certificate (Tests Certificate Expiration -> ACD-CERT-EXPIRED)
+# BadSSL public testing domain
+https://expired.badssl.com
+
+# 5. Wrong Certificate Subject / SAN Mismatch (Tests SAN mismatch -> ACD-CERT-NAME-MISMATCH)
+# BadSSL public testing domain
+https://wrong.host.badssl.com
+
+# 6. Self-Signed / Untrusted Root Authority (Tests Trust Chain -> ACD-CERT-UNTRUSTED-ROOT)
+# BadSSL public testing domain
+https://self-signed.badssl.com
+
+# 7. HTTP Client Forbidden (Tests HTTP status code detection -> ACD-HTTP-403)
+# HTTP status testing endpoint (run with --http)
+https://httpbin.org/status/403

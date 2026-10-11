@@ -1,0 +1,38 @@
+# ==============================================================================
+# TEST SUITE 3: Real Azure Cloud & PaaS Scenarios
+# ==============================================================================
+# Purpose: Validate Azure PaaS endpoint detection, Private vs. Public DNS classification,
+#          TDS SQL probing, AMQP Service Bus probing, and Managed Identity token acquisition.
+#
+# Instructions:
+# - Run without authentication to test DNS, TCP and TLS:
+#     dotnet run --project src/AzureConnectivityDoctor.Cli -- --endpoints-file samples/test-suite-azure-cloud.txt
+#
+# - Run with Entra ID / Managed Identity:
+#     dotnet run --project src/AzureConnectivityDoctor.Cli -- --endpoints-file samples/test-suite-azure-cloud.txt --identity
+# ==============================================================================
+
+# 1. Public Azure Service / Docs (Base HTTPS control)
+https://learn.microsoft.com
+
+# 2. Azure Management Endpoint (Control Plane)
+https://management.azure.com
+
+# 3. Azure Entra ID / Microsoft Login
+https://login.microsoftonline.com
+
+# 4. Azure SQL Database Logical Server (Default port 1433, TDS probe)
+# Replace placeholder with your real server or evaluate firewall rejection against dummy
+# sql-sample-acd-test.database.windows.net
+
+# 5. Azure Service Bus AMQP (Default port 5671, AMQP probe)
+# sb-sample-acd-test.servicebus.windows.net/testqueue
+
+# 6. Azure Service Bus AMQP over WebSockets (Port 443)
+# sb-sample-acd-test.servicebus.windows.net:443/testqueue
+
+# 7. Azure Storage Blob Endpoint
+# mystorageaccount.blob.core.windows.net:443
+
+# 8. Azure Key Vault REST API
+# mykeyvault.vault.azure.net:443

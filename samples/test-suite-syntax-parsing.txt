@@ -1,0 +1,36 @@
+# ==============================================================================
+# TEST SUITE 1: Syntax & Parser Validation
+# ==============================================================================
+# Purpose: Validate parser logic, port defaults, scheme extraction, and security checks.
+# Expected Outcome: Verify which endpoints parse cleanly and which are rejected with ACD-PARSE-FAILED.
+
+# 1. Valid Standard HTTPS Web Endpoint (Default port: 443)
+https://learn.microsoft.com
+
+# 2. Valid Standard HTTP Web Endpoint (Default port: 80)
+http://example.com
+
+# 3. Explicit Port Specification
+https://api.github.com:443/status
+
+# 4. Azure SQL Logical Server (Default port: 1433 inferred)
+contoso-sample.database.windows.net
+
+# 5. Azure SQL with explicit database path
+contoso-sample.database.windows.net/ordersdb
+
+# 6. Azure Service Bus AMQP (Default port: 5671 inferred)
+contoso-sample.servicebus.windows.net/orders-queue
+
+# 7. Azure Service Bus over WebSockets / HTTPS (Port 443)
+contoso-sample.servicebus.windows.net:443/orders-queue
+
+# 8. Raw IPv4 Literal with Port
+127.0.0.1:80
+
+# 9. Raw IPv6 Literal with Port
+[::1]:443
+
+# 10. Security Test: Credential rejection (Must fail with ACD-PARSE-FAILED and scrub secret)
+# Note: Uncomment to test parse failure behavior:
+# https://admin:superSecretPass123!@api.contoso.com/v1
